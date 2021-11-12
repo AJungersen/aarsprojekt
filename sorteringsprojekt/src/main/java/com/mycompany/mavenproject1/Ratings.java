@@ -69,13 +69,12 @@ public class Ratings {
     } catch (FileNotFoundException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    } catch (ParseException e) {
+    }catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
     }
+        // TODO Auto-generated catch block
+        
     }
     
 }
