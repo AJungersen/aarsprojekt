@@ -10,16 +10,24 @@ import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import java.io.File;
+import static java.nio.file.Files.list;
+import static java.nio.file.Files.size;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+
 /**
  *
  * @author tobia
  */
 public class DataOpener {
  
+   static     List<String> games = new ArrayList<String>();
+ static  List<String> info = new ArrayList<String>();
     public static void Read() throws Exception
     {
  String token1;
@@ -41,11 +49,28 @@ public class DataOpener {
       System.out.println(s);
       
     }*/
-    List<String> games = new ArrayList<String>();
-   List<String> info = new ArrayList<String>();
+
     splitList(temps,info,games);
     
-    String[] gamesArray = games.toArray(new String[0]);
+
+    
+    for (int i = games.size()-1; i >= 0; i--){
+    if (!games.get(i).contains(" 2.")){
+            games.remove(i);
+            info.remove(i);
+    }
+    else{
+        String s = games.get(i).trim();
+        s = s.replaceAll("\\d+\\.+ ", "");
+        games.set(i, s);
+        
+        
+    }
+ }
+    
+    
+    
+        String[] gamesArray = games.toArray(new String[0]);
     for (String s : gamesArray) {
       System.out.println(s);
     }
@@ -54,7 +79,9 @@ public class DataOpener {
       System.out.println(s);
     }
     
-    }
+    
+
+}
     //assumes all lists initialized by caller
 public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
     if (input.isEmpty()) { //base case
@@ -64,4 +91,5 @@ public static void splitList(List<String> input, List<String> current, List<Stri
         splitList(input.subList(1, input.size()), onDeck, current); //note toggling output list and call on rest of list, if any
     }
 }
+
 }
