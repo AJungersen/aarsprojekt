@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1;
+
 import com.github.bhlangonijr.chesslib.*;
 import com.github.bhlangonijr.chesslib.game.Game;
 import com.github.bhlangonijr.chesslib.move.Move;
@@ -19,77 +20,60 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-
 /**
  *
  * @author tobia
  */
 public class DataOpener {
- 
-   static     List<String> games = new ArrayList<String>();
- static  List<String> info = new ArrayList<String>();
-    public static void Read() throws Exception
-    {
- String token1;
+
+    public static void Read() throws Exception {
+        String token1;
         token1 = "";
         Scanner inFile1;
         inFile1 = new Scanner(new File("src/lichess_xdTobs_2021-11-01.pgn")).useDelimiter(Pattern.compile("^\\s*$", Pattern.MULTILINE));
         List<String> temps = new ArrayList<String>();
+        List<String> games = new ArrayList<String>();
+        List<String> info = new ArrayList<String>();
+        // while loop
+        while (inFile1.hasNext()) {
+            // find next line
+            token1 = inFile1.next();
+            temps.add(token1);
+        }
+        inFile1.close();
 
-    // while loop
-    while (inFile1.hasNext()) {
-      // find next line
-      token1 = inFile1.next();
-      temps.add(token1);
-    }
-    inFile1.close();
+        String[] tempsArray = temps.toArray(new String[0]);
+        for (String s : tempsArray) {
 
-   /* String[] tempsArray = temps.toArray(new String[0]);
-    for (String s : tempsArray) {
-      System.out.println(s);
-      
-    }*/
+        }
+        splitList(temps, info, games);
 
-    splitList(temps,info,games);
-    
+        for (int i = games.size() - 1; i >= 0; i--) {
+            if (!games.get(i).contains(" 2.")) {
+                games.remove(i);
+                info.remove(i);
+            } else {
+                String s = games.get(i).trim();
+                s = s.replaceAll("\\d+\\.+ ", "");
+                games.set(i, s);
 
-    
-    for (int i = games.size()-1; i >= 0; i--){
-    if (!games.get(i).contains(" 2.")){
-            games.remove(i);
-            info.remove(i);
+            }
+        }
+Parser p = new Parser();
+p.parse(games);
+            //String[] listArray = list.toArray(new String[0]);
+            //for (String s : listArray) {
+            //System.out.println(s);
     }
-    else{
-        String s = games.get(i).trim();
-        s = s.replaceAll("\\d+\\.+ ", "");
-        games.set(i, s);
-        
-        
-    }
- }
-    
-    
-    
-        String[] gamesArray = games.toArray(new String[0]);
-    for (String s : gamesArray) {
-      System.out.println(s);
-    }
-      String[] infoArray = info.toArray(new String[0]);
-    for (String s : infoArray) {
-      System.out.println(s);
-    }
-    
-    
-
-}
     //assumes all lists initialized by caller
-public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
-    if (input.isEmpty()) { //base case
-        return;
-    } else { //add the current element and call us on the rest of the list
-        current.add(input.get(0));
-        splitList(input.subList(1, input.size()), onDeck, current); //note toggling output list and call on rest of list, if any
+
+    public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
+        if (input.isEmpty()) { //base case
+            return;
+        } else { //add the current element and call us on the rest of the list
+            current.add(input.get(0));
+            splitList(input.subList(1, input.size()), onDeck, current); //note toggling output list and call on rest of list, if any
+        }
     }
-}
 
 }
