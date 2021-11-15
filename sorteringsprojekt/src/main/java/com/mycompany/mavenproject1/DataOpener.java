@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class DataOpener {
 
-    public static void Read() throws Exception {
+    public static List<String> Read() throws Exception {
         String token1;
         token1 = "";
         Scanner inFile1;
@@ -59,14 +60,13 @@ public class DataOpener {
 
             }
         }
-Parser p = new Parser();
-p.parse(games);
-            //String[] listArray = list.toArray(new String[0]);
-            //for (String s : listArray) {
-            //System.out.println(s);
+return games;
     }
     //assumes all lists initialized by caller
-
+public static Map<String, Integer> getMap() throws Exception{
+  Parser p = new Parser();  
+return p.parse(Read());
+}
     public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
         if (input.isEmpty()) { //base case
             return;

@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="738.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.SecondaryController">
    <children>
-      <ListView fx:id="ListViewMoves" layoutX="793.0" layoutY="31.0" prefHeight="644.0" prefWidth="234.0" />
+      <ListView fx:id="ListViewMoves" layoutX="793.0" layoutY="31.0" onContextMenuRequested="#HandleNextMove" prefHeight="644.0" prefWidth="234.0" />
       <Button fx:id="BtnSwitchPerspective" layoutX="793.0" layoutY="686.0" mnemonicParsing="false" onAction="#HandleBtnSwitchPerspective" text="Switch view" />
       <Canvas fx:id="CanvasChess" height="638.0" layoutX="51.0" layoutY="31.0" width="695.0" />
       <Button fx:id="BtnMainMenu" layoutX="950.0" layoutY="686.0" mnemonicParsing="false" onAction="#HandleBtnMainMenu" text="Main Menu" />
