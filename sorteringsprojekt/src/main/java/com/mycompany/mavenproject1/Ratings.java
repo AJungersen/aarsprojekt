@@ -30,7 +30,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Ratings {
     //File f;
-    JSONParser parser = new JSONParser();
+    //JSONParser parser = new JSONParser();
     
     Ratings(){
     
@@ -49,7 +49,7 @@ public class Ratings {
     }    */
     
     void importData(){//i'm yet to test it for errors
-    try {
+   /* try {
         JSONArray a = (JSONArray) parser.parse(new FileReader("GitHub\\\\aarsprojekt\\\\sorteringsprojekt\\\\src\\\\xdTobs-rating-history.json"));
         for (Object o : a)
         {
@@ -74,7 +74,7 @@ public class Ratings {
         e.printStackTrace();
     }
         // TODO Auto-generated catch block
-        
+   */     
     }
     
 }
