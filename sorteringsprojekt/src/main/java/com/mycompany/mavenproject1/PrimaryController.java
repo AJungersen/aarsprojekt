@@ -19,11 +19,11 @@ public class PrimaryController {
     
     private TextField userNameText;
     @FXML
-    private void HandleBtnSecondaryView() throws IOException {
+    private void HandleBtnSecondaryView() throws IOException, Exception {
         App.setRoot("secondary");
     }
     @FXML
     private void HandleBtnSubmit() throws IOException, Exception {
-        DataOpener.Read();
+    
     }
 }

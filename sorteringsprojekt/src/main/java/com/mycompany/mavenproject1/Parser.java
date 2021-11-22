@@ -5,12 +5,18 @@
  */
 package com.mycompany.mavenproject1;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 /**
  *
@@ -20,7 +26,7 @@ public class Parser {
 
     public Map<String, Integer> moveCount;
 
-    void parse(List<String> list) {
+    Map<String, Integer> parse(List<String> list) {
         for (int i = 0; i < list.size(); i++) {
             String x = list.get(i);
             x = x.replaceAll("\\s(.*)", "");
@@ -40,28 +46,29 @@ public class Parser {
             }
         }
         
+        
+        return sortByValue(moveCount,false);
+       
+    }
+
+    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+
+        // Sorting the list based on values
+        list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
+                ? o1.getKey().compareTo(o2.getKey())
+                : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
+                ? o2.getKey().compareTo(o1.getKey())
+                : o2.getValue().compareTo(o1.getValue()));
+        return list.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
 
     }
-    static List<String> getMoveInDescendingFreqOrder(Map<String, Integer> moveCount) {
 
-    // Convert map to list of <String,Integer> entries
-    List<Map.Entry<String, Integer>> list = 
-        new ArrayList<Map.Entry<String, Integer>>(moveCount.entrySet());
-
-    // Sort list by integer values
-    Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-            return (o2.getValue()).compareTo(o1.getValue());
-        }
-    });
-
-    // Populate the result into a list
-    List<String> result = new ArrayList<String>();
-    for (Map.Entry<String, Integer> entry : list) {
-        result.add(entry.getKey());
+    private static void printMap(Map<String, Integer> map) {
+        map.forEach((key, value) -> System.out.println("Key : " + key + " Value : " + value));
     }
-    return result;
-    }
+    
+
 }
 
 
