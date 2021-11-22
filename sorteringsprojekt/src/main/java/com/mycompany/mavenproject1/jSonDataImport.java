@@ -15,13 +15,18 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Bruger
  */
-public class jSonDataImport {
+public class jSonDataImport{
 
     JSONParser parser = new JSONParser();
-    JSONObject o = (JSONObject) parser.parse(new FileReader("xdTobs-rating-history.json"));
-    JSONArray array = (JSONArray) o.get("results");
+    JSONObject o;
+    JSONArray array;
     ArrayList<JSONObject> list = new ArrayList<>();
-    for (int i = 0; i< array.size(); i++){
+    void metode() throws Exception{
+        o = (JSONObject) parser.parse(new FileReader("xdTobs-rating-history.json"));
+        array = (JSONArray) o.get("results");
+    for (int i = 0; array.size()>i; i++){
             list.add((JSONObject) array.get(i));
+    }
+    System.out.println("JSondata importeret");
     }
 }
