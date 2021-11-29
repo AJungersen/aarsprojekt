@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="789.0" prefWidth="1233.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.PrimaryController">
    <children>
-      <TextField fx:id="userNametext" layoutX="71.0" layoutY="125.0" />
+      <TextField fx:id="userNameText" layoutX="71.0" layoutY="125.0" />
       <Text layoutX="70.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lichess username">
          <font>
             <Font size="20.0" />

@@ -5,7 +5,7 @@
  */
 package com.mycompany.mavenproject1;
 
-
+import static com.mycompany.mavenproject1.DataOpener.Read;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,7 +14,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
@@ -24,37 +29,59 @@ import javafx.scene.control.ListView;
  */
 public class Parser {
 
-    public Map<String, Integer> moveCount;
+    public static String getFirstMove(String string) {
 
-    Map<String, Integer> parse(List<String> list) {
-        for (int i = 0; i < list.size(); i++) {
-            String x = list.get(i);
+        string = string.replaceAll("\\s(.*)", "");
+
+        return string;
+    }
+
+
+/*  public static List<Boolean> isFirstMove(String move, List<String> g){
+                List<Boolean> booleang = new ArrayList<Boolean>();
+    
+    for (int y = g.size()-1; y >= 0; y--) {
+            if (getFirstMove(g).get(y).contains(move)) {
+
+                booleang.add(true);
+            }
+            else{
+            booleang.add(false);
+            }
+        
+    }
+    return booleang;
+    }
+ */
+public static Map<String, Integer> moveCount;
+
+    public static Map<String, Integer> parse(List<String> list) {
+        ArrayList<String> copyList = new ArrayList<String>(list);
+        for (int i = 0; i < copyList.size(); i++) {
+            String x = copyList.get(i);
             x = x.replaceAll("\\s(.*)", "");
-            list.set(i, x);
+            copyList.set(i, x);
 
         }
         Map<String, Integer> moveCount = new HashMap<String, Integer>();
 
         for (int i = 0; i < list.size(); i++) {
-            String move = list.get(i).replaceAll("[^A-Za-z0-9]", " ").toLowerCase();
+            String move = copyList.get(i).replaceAll("[^A-Za-z0-9]", " ");
             Integer count = moveCount.get(move);
             if (count == null) {
-                //no count registered for the move yet
                 moveCount.put(move, 1);
             } else {
                 moveCount.put(move, count + 1);
             }
         }
-        
-        
-        return sortByValue(moveCount,false);
-       
+
+        return sortByValue(moveCount, false);
+
     }
 
-    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
+    public static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
-        // Sorting the list based on values
         list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
                 ? o1.getKey().compareTo(o2.getKey())
                 : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
@@ -64,11 +91,38 @@ public class Parser {
 
     }
 
-    private static void printMap(Map<String, Integer> map) {
+    public static void printMap(Map<String, Integer> map) {
         map.forEach((key, value) -> System.out.println("Key : " + key + " Value : " + value));
     }
-    
+
+    public static List<String> shortenList(String move, List<String> g) {
+
+        List<String> sortedg = new ArrayList<String>();
+        ArrayList<String> g2 = new ArrayList<String>(g);
+        for (int y = 0;y<g.size();y++) {
+            if (getFirstMove(g.get(y)).contains(move)) {
+                sortedg.add(g2.get(y));
+            }
+        }
+
+        return sortedg;
+    }
+
+    public static List<String> shortenGame(List<String> g) {
+        ArrayList<String> copyG = new ArrayList<String>(g);
+        for (int i = 0; i < copyG.size(); i++) {
+            String x = copyG.get(i);
+            if (x.contains(" ")){
+            String[] arrtemp = x.split(" ", 2);
+            
+            
+            copyG.set(i, arrtemp[1]);
+            }
+            else{
+            copyG.set(i,"");
+            }
+        }
+        return copyG;
+    }
 
 }
-
-

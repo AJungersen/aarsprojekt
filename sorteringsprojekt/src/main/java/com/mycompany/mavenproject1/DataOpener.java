@@ -31,7 +31,7 @@ public class DataOpener {
         String token1;
         token1 = "";
         Scanner inFile1;
-        inFile1 = new Scanner(new File("src/lichess_xdTobs_2021-11-01.pgn")).useDelimiter(Pattern.compile("^\\s*$", Pattern.MULTILINE));
+        inFile1 = new Scanner(new File("data/"+App.fileName)).useDelimiter(Pattern.compile("^\\s*$", Pattern.MULTILINE));
         List<String> temps = new ArrayList<String>();
         List<String> games = new ArrayList<String>();
         List<String> info = new ArrayList<String>();

@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject1;
 
+import com.github.bhlangonijr.chesslib.Board;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,12 +15,15 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+public static String fileName;
 
+public static Board board = new Board();
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         stage.show();
+        
     }
 
     static void setRoot(String fxml) throws IOException {
