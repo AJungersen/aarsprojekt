@@ -2,5 +2,8 @@ com\mycompany\mavenproject1\DataOpener.class
 com\mycompany\mavenproject1\PrimaryController.class
 com\mycompany\mavenproject1\App.class
 com\mycompany\mavenproject1\Parser.class
-module-info.class
 com\mycompany\mavenproject1\Ratings.class
+com\mycompany\mavenproject1\SecondaryController.class
+module-info.class
+
+
