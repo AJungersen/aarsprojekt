@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,9 +25,12 @@ import java.util.List;
 public class APIrequest {
 
     public static boolean downloadGames(String userName) {
-        String URL = "https://lichess.org/api/games/user/" + userName + "?max=20";
-        String fileName = "data/lichess_" + userName + "_2021-11-28.pgn";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String URL = "https://lichess.org/api/games/user/" + userName;
+        String fileName = "data/lichess_" + userName + "_"+dtf.format(now)+".pgn";
         boolean returnVal = true;
+
         try (BufferedInputStream in = new BufferedInputStream(new URL(URL).openStream());
                 FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
             byte dataBuffer[] = new byte[1024];
@@ -40,7 +45,7 @@ public class APIrequest {
         return returnVal;
     }
 
-    public static List<String>getFilesUserName(String userName) {
+    public static List<String> getFilesUserName(String userName) {
         String[] fileNamesArray;
         List<String> fileNames = new ArrayList<String>();
         File f = new File("data/");
@@ -53,9 +58,9 @@ public class APIrequest {
             }
         };
         fileNamesArray = f.list(filter);
-        fileNames = Arrays.asList(fileNamesArray); 
+        fileNames = Arrays.asList(fileNamesArray);
         Collections.sort(fileNames, Collections.reverseOrder());
-        
+
         return fileNames;
     }
 }

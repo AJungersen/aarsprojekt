@@ -31,13 +31,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class SecondaryController implements Initializable {
 
+    @FXML
+    private Canvas CanvasChess;
+
     private List<String> sortedgames = new ArrayList<String>();
     private List<String> games = new ArrayList<String>();
-
+    GraphicsContext gc;
     @FXML
     private Button BtnSwitchPerspective;
 
@@ -46,9 +52,6 @@ public class SecondaryController implements Initializable {
 
     @FXML
     private TextField TextFieldNextMove;
-    
-    @FXML
-    private Canvas CanvasChess;
 
     @FXML
     private void HandleBtnMainMenu() throws IOException {
@@ -70,14 +73,30 @@ public class SecondaryController implements Initializable {
     @FXML
     private void HandleNextMove(MouseEvent event) throws Exception {
         String selectedMove = (String) ListViewMoves.getSelectionModel().getSelectedItem();
-        selectedMove = selectedMove.substring(0,selectedMove.indexOf(":"));
+        selectedMove = selectedMove.substring(0, selectedMove.indexOf(":"));
         App.board.doMove(selectedMove);
-        PrintBoard.printFEN(App.board.getFen());
+        String board = App.board.toString();
+
+        String parts[] = new String[8];
+        for (int i = 0; i < 8; i++) {
+            parts[i] = board.substring(i * 8 + i, i * 8 + 8 + i);
+        }
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, CanvasChess.getWidth(), CanvasChess.getHeight());
+        gc.setFill(Color.BLACK);
+        for (int i = 0; i < 8; i++) {
+            for (int u = 0; u < 8; u++) {
+                String s = parts[i];
+                String d = s.substring(u, u + 1);
+                gc.fillText(d, 200 + u * 25, 200 + i * 25);
+                //200 + u * 25, 200 + i * 25
+            }
+        }
+
         Parser p = new Parser();
         sortedgames = p.shortenList(selectedMove, sortedgames);
         sortedgames = p.shortenGame(sortedgames);
         updateListViewMoves(p.sortByValue(parse(sortedgames), false));
-        
 
     }
 
@@ -88,9 +107,10 @@ public class SecondaryController implements Initializable {
             games = Read();
             sortedgames = Read();
             updateListViewMoves(p.parse(games));
-            
+            gc = CanvasChess.getGraphicsContext2D();
+            gc.setFont(new Font("Times New Roman", 30));
 
-            
+            gc.setFill(Color.BLACK);
 
         } catch (Exception ex) {
 
