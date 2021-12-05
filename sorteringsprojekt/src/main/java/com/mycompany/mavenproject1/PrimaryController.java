@@ -46,8 +46,10 @@ public class PrimaryController {
     private void HandleBtnSubmit() throws IOException, Exception {
         // check for existing files with matching username
         List<String> fileNames = (APIrequest.getFilesUserName(userNameText.getText()));
+        List<String> fileNamesRating = (APIrequest.getRatingFilesUserName(userNameText.getText()));
         if (fileNames.size() == 0) {
             APIrequest.downloadGames(userNameText.getText());
+            APIrequest.downloadRating(userNameText.getText());
         } else {
             String fileDate = fileNames.get(0).substring(fileNames.get(0).indexOf(userNameText.getText() + "_") + userNameText.getLength() + 1, fileNames.get(0).indexOf(userNameText.getText() + "_") + userNameText.getLength() + 11);
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -60,13 +62,16 @@ public class PrimaryController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeYes) {
                 APIrequest.downloadGames(userNameText.getText());
+                APIrequest.downloadRating(userNameText.getText());
             } else {
                 //do nothing
             }
         }
         //update file list now with at least one file
         fileNames = (APIrequest.getFilesUserName(userNameText.getText()));
+        fileNamesRating = (APIrequest.getRatingFilesUserName(userNameText.getText()));
          App.fileName = (fileNames.get(0));
+         App.fileNameRating = (fileNamesRating.get(0));
     }
     
     @FXML
