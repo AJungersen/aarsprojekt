@@ -16,26 +16,22 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PrimaryController {
     private int[] currentScore = {0, 0, 0};
+    int[] c;
     
-    
-    
-    @FXML
-    private Button BtnSecondaryView;
-    @FXML
-    private Button BtnSubmit;
-    @FXML
-    private Button test;
-    @FXML
-    private TextField userNameText;
-    @FXML
-    private Canvas canvas;
-    @FXML
-    private GraphicsContext gc;
+    @FXML private Button BtnSecondaryView;
+    @FXML private Button BtnSubmit;
+    @FXML private TextField userNameText;
+    @FXML private TextArea bulletScore;
+    @FXML private TextArea blitzScore;
+    @FXML private TextArea rapidScore;       
+    @FXML private Canvas canvas;
+    @FXML private GraphicsContext gc;
 
     @FXML
     private void HandleBtnSecondaryView() throws IOException, Exception {
@@ -72,30 +68,69 @@ private void HandleBtnSubmit() throws IOException, Exception {
         fileNamesRating = (APIrequest.getRatingFilesUserName(userNameText.getText()));
          App.fileName = (fileNames.get(0));
          App.fileNameRating = (fileNamesRating.get(0));
+         calculateScores();
+         drawGraph(2);
     }
     
-    @FXML
-    private void drawGraph(){
-        
-        for(int i = 0; i<3;i++){
-            JSONObject obj = new JSONObject(Parser.jArray().get(i).toString());
+    
+    private void calc(int t){
+        JSONObject obj = new JSONObject(Parser.jArray().get(t).toString());
             JSONArray arr = obj.getJSONArray("points");
             String b = arr.toString();
             b = b.replaceAll("[\\p{Ps}]", "");//converts brackets(18:59 5-12-2021, Adam)
             b = b.replaceAll("[\\p{Pe}]", "");
             b = b.replaceAll(",", " ");
-            int[] c = Arrays.stream(b.split(" ")).mapToInt(Integer::parseInt).toArray();
-            currentScore[i] = c[c.length-1];
-            
-            for(int j = 0; 4*j < c.length; j++){
-                System.out.println(c[(4*j)+3]);
-            }
-            System.out.println("Last number is: " + currentScore[i]);
-            
-            
-        }
+            c = Arrays.stream(b.split(" ")).mapToInt(Integer::parseInt).toArray();
     }
     
     
+    
+    
+    @FXML
+    private void calculateScores(){
+        for(int i = 0; i<3;i++){
+            calc(i);
+            currentScore[i] = c[c.length-1];
+            for(int j = 0; 4*j < c.length; j++){
+                //System.out.println(c[(4*j)+3]);
+            } 
+        }
+    bulletScore.setText(Integer.toString(currentScore[0]));
+    blitzScore.setText(Integer.toString(currentScore[1]));
+    rapidScore.setText(Integer.toString(currentScore[2]));
+    }
+    
+    
+    @FXML
+    private void drawGraph(int r){
+    calc(r);
+        
+    /*int minValue = c[0];
+    int maxValue = c[0];
+    for (int i = 1; i < c.length; i++) {
+        if (c[i] < minValue) {
+            minValue = c[i];
+        } else if (c[i] > maxValue) {
+            maxValue = c[i];
+        }
+    }*/
+    double dis = 764/c.length;
+    double height;
+    for(int y = 0; y < c.length; y++){    
+    height = c[y];
+    gc.strokeLine(y*dis,c[y],(y+1)*dis,c[y+1]);
+    }
+    
+    
+                
+    
+        
+    
+        
+    
+    
+    
+                
+    }
     
 }
