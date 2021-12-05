@@ -8,12 +8,15 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class PrimaryController {
 
@@ -64,13 +67,24 @@ public class PrimaryController {
     
     @FXML
     private void drawGraph(){
-        //gc = canvas.getGraphicsContext2D();
+        
         for(int i = 0; i<3;i++){
-            System.out.println(Parser.jArray().get(i));//gets the right object atm(16:36 5-12-2021, Adam)
+            JSONObject obj = new JSONObject(Parser.jArray().get(i).toString());
+            JSONArray arr = obj.getJSONArray("points");
+            String b = arr.toString();
+            b = b.replaceAll("[\\p{Ps}]", "{");//converts brackets(18:59 5-12-2021, Adam)
+            b = b.replaceAll("[\\p{Pe}]", "}");
+            
+            
+            
+            System.out.println(b);//only prints the numbers in brackets now(18:23 5-12-2021, Adam)
+            
+            
+            /*int size = str.length;
+            int [] arr = new int [size];
+            for(int i=0; i<size; i++) {
+            arr[i] = Integer.parseInt(str[i]);
+            }*/
         }
-       
-        
-        
-        
     }
 }
