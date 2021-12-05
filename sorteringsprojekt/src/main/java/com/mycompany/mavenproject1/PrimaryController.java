@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -72,19 +73,16 @@ public class PrimaryController {
             JSONObject obj = new JSONObject(Parser.jArray().get(i).toString());
             JSONArray arr = obj.getJSONArray("points");
             String b = arr.toString();
-            b = b.replaceAll("[\\p{Ps}]", "{");//converts brackets(18:59 5-12-2021, Adam)
-            b = b.replaceAll("[\\p{Pe}]", "}");
+            b = b.replaceAll("[\\p{Ps}]", "");//converts brackets(18:59 5-12-2021, Adam)
+            b = b.replaceAll("[\\p{Pe}]", "");
+            b = b.replaceAll(",", " ");
+            int[] c = Arrays.stream(b.split(" ")).mapToInt(Integer::parseInt).toArray();
+            for(int j = 0; j < c.length; j++){
+                
+            }
             
             
             
-            System.out.println(b);//only prints the numbers in brackets now(18:23 5-12-2021, Adam)
-            
-            
-            /*int size = str.length;
-            int [] arr = new int [size];
-            for(int i=0; i<size; i++) {
-            arr[i] = Integer.parseInt(str[i]);
-            }*/
         }
     }
 }
