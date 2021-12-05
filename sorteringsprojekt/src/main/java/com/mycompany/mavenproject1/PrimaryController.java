@@ -6,11 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
@@ -20,10 +23,10 @@ import javafx.scene.control.TextArea;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class PrimaryController {
+public class PrimaryController implements Initializable {
     private int[] currentScore = {0, 0, 0};
     int[] c;
-    
+    GraphicsContext gcc;
     @FXML private Button BtnSecondaryView;
     @FXML private Button BtnSubmit;
     @FXML private TextField userNameText;
@@ -33,6 +36,10 @@ public class PrimaryController {
     @FXML private Canvas canvas;
     @FXML private GraphicsContext gc;
 
+     public void initialize(URL url, ResourceBundle rb) {
+     gcc = canvas.getGraphicsContext2D();
+     }
+    
     @FXML
     private void HandleBtnSecondaryView() throws IOException, Exception {
         App.setRoot("secondary");
@@ -114,11 +121,15 @@ private void HandleBtnSubmit() throws IOException, Exception {
             maxValue = c[i];
         }
     }*/
-    double dis = 764/c.length;
+    double dis = 764/c.length/4;
     double height;
-    for(int y = 0; y < c.length; y++){    
+    for(int y = 1; y < c.length/4-1; y++){    
     height = c[y];
-    gc.strokeLine(y*dis,c[y],(y+1)*dis,c[y+1]);
+    double x1 = y*dis;
+    double y1 = (c[y*4-1])/5;
+    double x2 = (y+1)*dis;
+    double y2 = (c[y*4])/5;
+    gcc.strokeLine(x1,y1,x2,y2);
     }
     
     
