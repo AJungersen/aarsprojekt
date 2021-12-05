@@ -19,6 +19,7 @@ public class App extends Application {
 
     private static Scene scene;
 public static String fileName;
+public static String fileNameRating;
 
 public static Board board = new Board();
     @Override
