@@ -20,7 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PrimaryController {
-
+    private int[] currentScore = {0, 0, 0};
+    
+    
+    
     @FXML
     private Button BtnSecondaryView;
     @FXML
@@ -77,12 +80,17 @@ public class PrimaryController {
             b = b.replaceAll("[\\p{Pe}]", "");
             b = b.replaceAll(",", " ");
             int[] c = Arrays.stream(b.split(" ")).mapToInt(Integer::parseInt).toArray();
-            for(int j = 0; j < c.length; j++){
-                
-            }
+            currentScore[i] = c[c.length-1];
             
+            for(int j = 0; 4*j < c.length; j++){
+                System.out.println(c[(4*j)+3]);
+            }
+            System.out.println("Last number is: " + currentScore[i]);
             
             
         }
     }
+    
+    
+    
 }
