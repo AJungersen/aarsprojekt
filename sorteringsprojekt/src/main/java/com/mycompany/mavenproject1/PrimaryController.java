@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -20,8 +22,13 @@ public class PrimaryController {
     @FXML
     private Button BtnSubmit;
     @FXML
-
+    private Button test;
+    @FXML
     private TextField userNameText;
+    @FXML
+    private Canvas canvas;
+    @FXML
+    private GraphicsContext gc;
 
     @FXML
     private void HandleBtnSecondaryView() throws IOException, Exception {
@@ -53,5 +60,17 @@ public class PrimaryController {
         //update file list now with at least one file
         fileNames = (APIrequest.getFilesUserName(userNameText.getText()));
          App.fileName = (fileNames.get(0));
+    }
+    
+    @FXML
+    private void drawGraph(){
+        //gc = canvas.getGraphicsContext2D();
+        for(int i = 0; i<3;i++){
+            System.out.println(Parser.jArray().get(i));//gets the right object atm(16:36 5-12-2021, Adam)
+        }
+       
+        
+        
+        
     }
 }

@@ -42,6 +42,7 @@ public static Board board = new Board();
     
 
     public static void main(String[] args) {
+        //Parser.jArray();
         launch();
         
     }

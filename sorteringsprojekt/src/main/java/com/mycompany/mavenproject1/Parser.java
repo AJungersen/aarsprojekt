@@ -6,6 +6,8 @@
 package com.mycompany.mavenproject1;
 
 import static com.mycompany.mavenproject1.DataOpener.Read;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +24,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -123,6 +128,20 @@ public static Map<String, Integer> moveCount;
             }
         }
         return copyG;
+    }
+    
+    public static JSONArray jArray(){
+        JSONArray data = null;
+        try {
+            JSONParser parser = new JSONParser();
+        //Use JSONObject for simple JSON and JSONArray for array of JSON.
+            data = (JSONArray) parser.parse(new FileReader("data\\xdTobs-rating-history.json"));//path to the JSON file.
+            //String json = data.toJSONString();
+            //System.out.println(json);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    return data;
     }
 
 }

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 import java.util.Arrays;
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 
 /**
  *
@@ -16,6 +18,12 @@ import java.util.Arrays;
  */
 public class PrintBoard {
 
+    
+    
+    
+    
+    
+    
    /* public static void printFEN(String FEN) {
         List<String> rows = new ArrayList<String>();
         FEN = FEN.substring(0, FEN.indexOf(" "));
