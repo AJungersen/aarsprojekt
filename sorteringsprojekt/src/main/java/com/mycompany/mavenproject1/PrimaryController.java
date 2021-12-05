@@ -43,7 +43,7 @@ public class PrimaryController {
     }
 
     @FXML
-    private void HandleBtnSubmit() throws IOException, Exception {
+private void HandleBtnSubmit() throws IOException, Exception {
         // check for existing files with matching username
         List<String> fileNames = (APIrequest.getFilesUserName(userNameText.getText()));
         List<String> fileNamesRating = (APIrequest.getRatingFilesUserName(userNameText.getText()));

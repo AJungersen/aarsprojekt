@@ -135,7 +135,7 @@ public static Map<String, Integer> moveCount;
         try {
             JSONParser parser = new JSONParser();
         //Use JSONObject for simple JSON and JSONArray for array of JSON.
-            data = (JSONArray) parser.parse(new FileReader("data\\xdTobs-rating-history.json"));//path to the JSON file.
+            data = (JSONArray) parser.parse(new FileReader("data/"+App.fileNameRating));//path to the JSON file.
             //String json = data.toJSONString();
             //System.out.println(json);
         } catch (IOException | ParseException e) {

@@ -48,7 +48,7 @@ public class APIrequest {
     public static boolean downloadRating(String userName) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
-        String URL = "https://lichess.org/api/user/" + userName+"rating-history";
+        String URL = "https://lichess.org/api/user/" + userName+"/rating-history";
         String fileName = "data/lichess_" + userName + "_"+dtf.format(now)+".JSON";
         boolean returnVal = true;
 
