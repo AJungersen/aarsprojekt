@@ -44,9 +44,7 @@ public class DataOpener {
         inFile1.close();
 
         String[] tempsArray = temps.toArray(new String[0]);
-        for (String s : tempsArray) {
 
-        }
         splitList(temps, info, games);
 
         for (int i = games.size() - 1; i >= 0; i--) {

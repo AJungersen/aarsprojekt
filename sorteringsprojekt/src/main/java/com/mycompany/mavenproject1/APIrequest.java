@@ -24,32 +24,11 @@ import java.util.List;
  */
 public class APIrequest {
 
-    public static boolean downloadGames(String userName) {
+    public boolean downloadFile(String userName) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String URL = "https://lichess.org/api/games/user/" + userName;
-        String fileName = "data/lichess_" + userName + "_"+dtf.format(now)+".pgn";
-        boolean returnVal = true;
-
-        try (BufferedInputStream in = new BufferedInputStream(new URL(URL).openStream());
-                FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
-            byte dataBuffer[] = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
-
-            }
-        } catch (IOException e) {
-            returnVal = false;
-        }
-        return returnVal;
-    }
-    
-    public static boolean downloadRating(String userName) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        String URL = "https://lichess.org/api/user/" + userName+"/rating-history";
-        String fileName = "data/lichess_" + userName + "_"+dtf.format(now)+".JSON";
+        String fileName = "data/lichess_" + userName + "_" + dtf.format(now) + ".pgn";
         boolean returnVal = true;
 
         try (BufferedInputStream in = new BufferedInputStream(new URL(URL).openStream());
@@ -66,7 +45,7 @@ public class APIrequest {
         return returnVal;
     }
 
-    public static List<String> getFilesUserName(String userName) {
+    public  List<String> getFilesUserName(String userName) {
         String[] fileNamesArray;
         List<String> fileNames = new ArrayList<String>();
         File f = new File("data/");
@@ -84,8 +63,34 @@ public class APIrequest {
 
         return fileNames;
     }
-    
-        public static List<String> getRatingFilesUserName(String userName) {
+
+}
+
+class APIrequestJSON extends APIrequest {
+    //Polymorphsim, but not necessary at all
+@Override
+    public boolean downloadFile(String userName) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String URL = "https://lichess.org/api/user/" + userName + "/rating-history";
+        String fileName = "data/lichess_" + userName + "_" + dtf.format(now) + ".JSON";
+        boolean returnVal = true;
+
+        try (BufferedInputStream in = new BufferedInputStream(new URL(URL).openStream());
+                FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+            byte dataBuffer[] = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+
+            }
+        } catch (IOException e) {
+            returnVal = false;
+        }
+        return returnVal;
+    }
+@Override
+    public  List<String> getFilesUserName(String userName) {
         String[] fileNamesArray;
         List<String> fileNames = new ArrayList<String>();
         File f = new File("data/");
@@ -102,5 +107,6 @@ public class APIrequest {
         Collections.sort(fileNames, Collections.reverseOrder());
 
         return fileNames;
+
     }
 }
