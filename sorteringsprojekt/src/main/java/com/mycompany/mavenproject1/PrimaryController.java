@@ -23,6 +23,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.lang.*;
+import static java.lang.Math.abs;
 
 public class PrimaryController implements Initializable {
 
@@ -130,22 +132,27 @@ public class PrimaryController implements Initializable {
             maxValue = c[i];
         }
     }*/
-        double dis = 764 / c.length / 4;
         double height;
+        double height2;
         int[] rating = new int[c.length / 4];
         for (int y = 0; y < c.length; y++) {
-            
-            if ((y-3) % 4 == 0) {
-                rating[y/4] = c[y];
+
+            if ((y - 3) % 4 == 0) {
+                rating[y / 4] = c[y];
             }
         }
-
-        for (int y = 1; y < rating.length; y++) {
+        gcc.strokeText("500", 0, abs(canvas.getHeight()-((500) * (canvas.getHeight() / (2500)))));
+        gcc.strokeText("1000", 0, abs(canvas.getHeight()-((1000) * (canvas.getHeight() / (2500)))));
+        gcc.strokeText("1500", 0, abs(canvas.getHeight()-((1500) * (canvas.getHeight() / (2500)))));
+        gcc.strokeText("2000", 0, abs(canvas.getHeight()-((2000) * (canvas.getHeight() / (2500)))));
+        double dis = 764 / rating.length;
+        for (int y = 0; y < rating.length-1; y++) {
             height = rating[y];
+            height2 = rating[y+1];
             double x1 = y * dis;
-            double y1 = (height) / 5;
+            double y1 = abs(canvas.getHeight()-(height) * (canvas.getHeight() / (2500)));
             double x2 = (y + 1) * dis;
-            double y2 = (height) / 5;
+            double y2 = abs(canvas.getHeight()-(height2) * (canvas.getHeight() / (2500)));
             gcc.strokeLine(x1, y1, x2, y2);
         }
 
