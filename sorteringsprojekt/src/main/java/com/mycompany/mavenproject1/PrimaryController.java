@@ -122,16 +122,6 @@ public class PrimaryController implements Initializable {
     private void drawGraph(int r) {
 
         calc(r);
-
-        /*int minValue = c[0];
-    int maxValue = c[0];
-    for (int i = 1; i < c.length; i++) {
-        if (c[i] < minValue) {
-            minValue = c[i];
-        } else if (c[i] > maxValue) {
-            maxValue = c[i];
-        }
-    }*/
         double height;
         double height2;
         int[] rating = new int[c.length / 4];

@@ -65,6 +65,7 @@ public static Map<String, Integer> getMap() throws Exception{
   Parser p = new Parser();  
 return p.parse(Read());
 }
+
     public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
         if (input.isEmpty()) { //base case
             return;

@@ -41,23 +41,6 @@ public class Parser {
         return string;
     }
 
-
-/*  public static List<Boolean> isFirstMove(String move, List<String> g){
-                List<Boolean> booleang = new ArrayList<Boolean>();
-    
-    for (int y = g.size()-1; y >= 0; y--) {
-            if (getFirstMove(g).get(y).contains(move)) {
-
-                booleang.add(true);
-            }
-            else{
-            booleang.add(false);
-            }
-        
-    }
-    return booleang;
-    }
- */
 public static Map<String, Integer> moveCount;
 
     public static Map<String, Integer> parse(List<String> list) {
@@ -137,8 +120,6 @@ public static Map<String, Integer> moveCount;
         //Use JSONObject for simple JSON and JSONArray for array of JSON.
         APIrequest apiJSON = new APIrequestJSON();
             data = (JSONArray) parser.parse(new FileReader("data/"+App.fileNameRating));//path to the JSON file.
-            //String json = data.toJSONString();
-            //System.out.println(json);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
