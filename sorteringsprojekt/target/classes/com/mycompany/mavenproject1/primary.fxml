@@ -21,7 +21,7 @@
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Canvas fx:id="canvas" height="322.0" layoutX="432.0" layoutY="448.0" width="764.0" />
+      <Canvas fx:id="canvas" height="322.0" layoutX="432.0" layoutY="448.0" style="-fx-: blue;" width="764.0" />
       <TextArea fx:id="bulletScore" layoutX="426.0" layoutY="41.0" prefHeight="90.0" prefWidth="764.0" style="-fx-background-color: gray;" />
       <TextArea fx:id="blitzScore" layoutX="426.0" layoutY="169.0" prefHeight="90.0" prefWidth="764.0" style="-fx-background-color: gray;" />
       <TextArea fx:id="rapidScore" layoutX="426.0" layoutY="296.0" prefHeight="90.0" prefWidth="764.0" style="-fx-background-color: gray;" />
@@ -44,6 +44,5 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Button fx:id="test" layoutX="532.0" layoutY="424.0" mnemonicParsing="false" onMouseClicked="#calculateScores" text="Draw graph" />
    </children>
 </Pane>
