@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class APIrequest {
 
-    public boolean downloadFile(String userName) {
+    public boolean downloadFile(String userName) {//opens stream to download file and names it with current date and username
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String URL = "https://lichess.org/api/games/user/" + userName;
@@ -45,7 +45,7 @@ public class APIrequest {
         return returnVal;
     }
 
-    public  List<String> getFilesUserName(String userName) {
+    public  List<String> getFilesUserName(String userName) {//reads files from datafolder and returns all usernames
         String[] fileNamesArray;
         List<String> fileNames = new ArrayList<String>();
         File f = new File("data/");
@@ -69,7 +69,7 @@ public class APIrequest {
 class APIrequestJSON extends APIrequest {
     //Polymorphsim, but not necessary at all
 @Override
-    public boolean downloadFile(String userName) {
+    public boolean downloadFile(String userName) {//same as the prevoius downloadFile(), only that this is for JSON-files and is Overriding the other method
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String URL = "https://lichess.org/api/user/" + userName + "/rating-history";
@@ -90,7 +90,7 @@ class APIrequestJSON extends APIrequest {
         return returnVal;
     }
 @Override
-    public  List<String> getFilesUserName(String userName) {
+    public  List<String> getFilesUserName(String userName) {//same as the previous method with the same username, only this one is for JSON
         String[] fileNamesArray;
         List<String> fileNames = new ArrayList<String>();
         File f = new File("data/");

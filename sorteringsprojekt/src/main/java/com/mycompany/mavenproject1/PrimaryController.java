@@ -60,6 +60,15 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void HandleBtnSubmit() throws IOException, Exception {
+        
+        /*gets username from textfield above and reads the current files stored in the data folder, to see if any files 
+        match usernames. If no then it downloads the pgn and JSON files for the user from the lichess API, if yes then a 
+        prompt opens and you are asked whether you wish to download the newest file, if yes then it downloads the newst 
+        file, and that will be used from then on. Currently there are files stored with the username "xdTobs", but any 
+        user on lichess.org, will be accepted. Beware that the macimum rate of downloading games is 20 games a second, 
+        and that it might take a while for some players with a lot of games*/
+        //also draws graph and shows current rating
+        
         // check for existing files with matching username
         APIrequest apipgn = new APIrequest();
         APIrequest apiJSON = new APIrequestJSON();
@@ -73,7 +82,7 @@ public class PrimaryController implements Initializable {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Request Update");
             alert.setHeaderText("Last file from this user was downloaded at: " + fileDate);
-            alert.setContentText("Do you want to download the most recent file?");
+            alert.setContentText("Do you want to download the most recent file? This might take a while.");
             ButtonType buttonTypeYes = new ButtonType("Yes");
             ButtonType buttonTypeNo = new ButtonType("No");
             alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
@@ -94,7 +103,7 @@ public class PrimaryController implements Initializable {
         drawGraph(2);
     }
 
-    private void calc(int t) {
+    private void calc(int t) {//sets intarray c to contain the scores of the player in a particular category, removing punctuation
         JSONObject obj = new JSONObject(Parser.jArray().get(t).toString());
         JSONArray arr = obj.getJSONArray("points");
         String b = arr.toString();
@@ -105,7 +114,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void calculateScores() {
+    private void calculateScores() {//sets scoresfields in different categories to their current scores
         for (int i = 0; i < 3; i++) {
             calc(i);
             currentScore[i] = c[c.length - 1];
@@ -119,7 +128,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void drawGraph(int r) {
+    private void drawGraph(int r) {//turns array into an array that only contains rating data. Then plots the data on canvas
 
         calc(r);
         double height;

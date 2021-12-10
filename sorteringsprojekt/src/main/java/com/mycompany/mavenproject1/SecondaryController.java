@@ -71,7 +71,7 @@ public class SecondaryController implements Initializable {
     }
 
     @FXML
-    private void HandleNextMove(MouseEvent event) throws Exception {
+    private void HandleNextMove(MouseEvent event) throws Exception {//runs chess move when move pressed and shows current chess board on canvas
         String selectedMove = (String) ListViewMoves.getSelectionModel().getSelectedItem();
         selectedMove = selectedMove.substring(0, selectedMove.indexOf(":"));
         App.board.doMove(selectedMove);
@@ -100,7 +100,7 @@ public class SecondaryController implements Initializable {
 
     }
 
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {//sets font and initializes varables games and sortedgames
         try {
 
             Parser p = new Parser();
@@ -117,7 +117,7 @@ public class SecondaryController implements Initializable {
         }
     }
 
-    private void updateListViewMoves(Map<String, Integer> map) {
+    private void updateListViewMoves(Map<String, Integer> map) {//shows sorted hashmap on listview
         ListViewMoves.getItems().clear();
         map.forEach((key, value) -> ListViewMoves.getItems().add(key + ": " + value));
     }

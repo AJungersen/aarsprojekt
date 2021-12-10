@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class DataOpener {
 
-    public static List<String> Read() throws Exception {
+    public static List<String> Read() throws Exception {//inputs raw pgn-files and returns an arraylist of chess games from the read file
         String token1;
         token1 = "";
         Scanner inFile1;
@@ -66,7 +66,7 @@ public static Map<String, Integer> getMap() throws Exception{
 return p.parse(Read());
 }
 
-    public static void splitList(List<String> input, List<String> current, List<String> onDeck) {
+    public static void splitList(List<String> input, List<String> current, List<String> onDeck) {//splits arraylists into two arraylists. One with the odd indexed objects from the original arraylists, one with the even
         if (input.isEmpty()) { //base case
             return;
         } else { //add the current element and call us on the rest of the list

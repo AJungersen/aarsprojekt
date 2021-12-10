@@ -17,7 +17,8 @@ import javafx.scene.canvas.Canvas;
  */
 public class App extends Application {
 
-    private static Scene scene;
+//declares globally accessible variables    
+private static Scene scene;
 public static String fileName;
 public static String fileNameRating;
 
@@ -43,7 +44,6 @@ public static Board board = new Board();
     
 
     public static void main(String[] args) {
-        //Parser.jArray();
         launch();
         
     }

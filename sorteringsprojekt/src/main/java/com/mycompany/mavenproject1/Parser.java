@@ -34,16 +34,16 @@ import org.json.simple.parser.ParseException;
  */
 public class Parser {
 
-    public static String getFirstMove(String string) {
+public static Map<String, Integer> moveCount;
+
+    public static String getFirstMove(String string) {//Get first word form string
 
         string = string.replaceAll("\\s(.*)", "");
 
         return string;
     }
 
-public static Map<String, Integer> moveCount;
-
-    public static Map<String, Integer> parse(List<String> list) {
+    public static Map<String, Integer> parse(List<String> list) {//counts most popular moves and returns as hashmap
         ArrayList<String> copyList = new ArrayList<String>(list);
         for (int i = 0; i < copyList.size(); i++) {
             String x = copyList.get(i);
@@ -67,7 +67,7 @@ public static Map<String, Integer> moveCount;
 
     }
 
-    public static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
+    public static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {//sorts the hashmap, and puts the most popular move at the top
         List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
         list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
@@ -79,11 +79,7 @@ public static Map<String, Integer> moveCount;
 
     }
 
-    public static void printMap(Map<String, Integer> map) {
-        map.forEach((key, value) -> System.out.println("Key : " + key + " Value : " + value));
-    }
-
-    public static List<String> shortenList(String move, List<String> g) {
+    public static List<String> shortenList(String move, List<String> g) {//gets all games and retuns only games with the given move as the first one
 
         List<String> sortedg = new ArrayList<String>();
         ArrayList<String> g2 = new ArrayList<String>(g);
@@ -96,7 +92,7 @@ public static Map<String, Integer> moveCount;
         return sortedg;
     }
 
-    public static List<String> shortenGame(List<String> g) {
+    public static List<String> shortenGame(List<String> g) {//removes all but first word in every string in the arraylist
         ArrayList<String> copyG = new ArrayList<String>(g);
         for (int i = 0; i < copyG.size(); i++) {
             String x = copyG.get(i);
@@ -113,7 +109,7 @@ public static Map<String, Integer> moveCount;
         return copyG;
     }
     
-    public static JSONArray jArray(){
+    public static JSONArray jArray(){//retruns jsonarray containing ratings for particular player
         JSONArray data = null;
         try {
             JSONParser parser = new JSONParser();
